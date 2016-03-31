@@ -1,0 +1,61 @@
+#Binary Search vs. Regular Search
+#Purpose:  Take a non-empty array of numbers and search through the array to see if an element exists.
+#And if the element exists then find the index of that element in the array.
+
+#regularSearch() searches the elements in order, one by one.
+def regularSearch(array, element):
+    print "Let's try a regular search..."
+    size = len(array)
+    for j in range(0, size):
+        if array[j] == element:
+            print "Found " + str(element) + "!"
+            print "Location at index # " + str(j) + "."
+         
+    if element not in array:
+        print "Element not found"
+    
+#binarySearch() searches in various indices in the array to reduce search time.
+def binarySearch(array, target):
+   import math
+   
+   #Make an array of distinct elements.
+   setArray = set(array)
+   distinctArray = list(setArray)
+   sortedArray = sorted(distinctArray)
+   
+   size = len(sortedArray)
+   target = target
+   
+   targetFound = False
+
+   print "Here is the sorted array:"
+   print sortedArray
+
+   print "Time to do the binary search..."
+   
+   for i in range(1, size):
+       numerator = 2**i - 1
+       denominator = 2**i
+       numerator = float(numerator)
+       ratio = (numerator / denominator) * size
+       nIndex = int(math.floor(ratio)) #formula for binary search: index = (2^i - 1) / 2^i * n for the ith element and length n of array
+       print "Look at index # " + str(nIndex) + "."
+       if sortedArray[0] == target:
+            print "Found " + str(target) + "!"
+            print "Location was at index #0."
+            targetFound = True
+            break
+       if sortedArray[nIndex] == target:
+            print "Found " + str(target) + "!"
+            print "Location was at index# " + str(nIndex) + "."
+            targetFound = True
+            break
+       if nIndex == size - 1:
+           break
+   
+   #If the binary search does not work, then do a regular search to find the element.   
+   if target in sortedArray or target not in sortedArray and targetFound == False:
+       regularSearch(sortedArray, target)
+    
+
+       
